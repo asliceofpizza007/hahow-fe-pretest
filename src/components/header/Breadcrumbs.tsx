@@ -1,0 +1,54 @@
+import { Fragment, useMemo } from "react";
+import { useLocation, Link } from "@tanstack/react-router";
+
+import crumbCVA from "./crumbCVA";
+
+type Crumb = {
+  path: string;
+  name: string;
+};
+
+const Breadcrumbs = () => {
+  const location = useLocation();
+  const crumbs = useMemo<Crumb[]>(() => {
+    const paths = location.pathname.split("/").filter(Boolean);
+    let currPath = "";
+    const res = [];
+    for (const path of paths) {
+      currPath += `/${path}`;
+      res.push({
+        path: currPath,
+        name: path,
+      });
+    }
+    return res;
+  }, [location.pathname]);
+
+  return (
+    <nav
+      className="flex items-center gap-2 uppercase font-bold text-lg"
+      aria-label="breadcrumb"
+    >
+      <Link className="hover:text-au-accent" to="/">
+        Home
+      </Link>
+      {crumbs.map((crumb) => {
+        return (
+          <Fragment key={crumb.name}>
+            <span className="select-none"> / </span>
+            <Link
+              className={crumbCVA({
+                isCurrent: crumb.path === location.pathname,
+              })}
+              to={crumb.path}
+            >
+              {crumb.name}
+            </Link>
+          </Fragment>
+        );
+      })}
+    </nav>
+  );
+};
+
+export default Breadcrumbs;
