@@ -26,7 +26,7 @@ const Breadcrumbs = () => {
 
   return (
     <nav
-      className="flex items-center gap-2 uppercase font-bold text-lg"
+      className="flex items-center gap-1 uppercase font-bold text-base md:text-lg md:gap-2"
       aria-label="breadcrumb"
     >
       <Link className="hover:text-au-accent" to="/">
