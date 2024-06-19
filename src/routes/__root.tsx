@@ -10,7 +10,7 @@ export const Route = createRootRouteWithContext<{
   component: () => (
     <>
       <Header />
-      <main className="container">
+      <main className="content-wrapper flex-col gap-4 py-4">
         <Outlet />
       </main>
 

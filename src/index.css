@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
+.content-wrapper {
   @apply flex items-center w-full px-4 xl:w-[1200px] md:px-6 xl:mx-auto xl:px-0;
+}
+
+@layer components {
+  .card {
+    @apply relative bg-[#b1bdc80d] shadow-md rounded-2xl p-4 overflow-hidden [&_img]:hover:grayscale-0;
+  }
+
+  .card::before {
+    @apply content-[''] absolute top-[var(--y,0)] left-[var(--x,0)] -translate-x-2/4 -translate-y-2/4 w-[700px] h-[700px] opacity-0 transition-[all,top,left] duration-[0.5s,0s,0s] hover:opacity-100;
+    background: radial-gradient(var(--color, white), transparent, transparent);
+  }
+
+  .card::after {
+    @apply content-[''] absolute inset-[2px] rounded-2xl bg-[#22374b]/65;
+  }
+
+  .card.active {
+    @apply [&_img]:grayscale-0;
+  }
+
+  .card.active::after {
+    @apply ring-2 ring-[var(--color,white)];
+  }
 }
