@@ -52,7 +52,7 @@ function HeroLayout() {
                   <Card.Image src={hero.image} alt={hero.name} />
                   <Card.Title>{hero.name}</Card.Title>
                   <Link
-                    className="inline-flex justify-center items-center px-4 py-2 bg-au-background/80 border-[2px] border-au-secondary rounded-md font-medium text-xs uppercase shadow-sm transition duration-300 ease-in-out hover:bg-au-secondary hover:border-transparent focus:outline-none"
+                    className="inline-flex justify-center items-center px-4 py-2 bg-au-background/80 rounded-md font-medium text-xs uppercase underline shadow-sm transition duration-300 ease-in-out hover:bg-au-secondary hover:border-transparent focus:outline-none"
                     to={`/heroes/${hero.id}`}
                     search={{
                       name: hero.name,
