@@ -1,10 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 
-export const Route = createFileRoute("/heroes/$heroId")({
-  component: HeroProfile,
+import { getHeroStateQueryOptions } from "../../api";
+
+const profileSearchSchema = z.object({
+  name: z.string().nullish(),
 });
 
-function HeroProfile() {
-  const { heroId } = Route.useParams();
-  return <p>{heroId}</p>;
-}
+type ProfileSearch = z.infer<typeof profileSearchSchema>;
+
+export const Route = createFileRoute("/heroes/$heroId")({
+  validateSearch: (search: Record<string, unknown>): ProfileSearch =>
+    profileSearchSchema.parse(search),
+  loader: ({ context: { queryClient }, params }) =>
+    queryClient.ensureQueryData(getHeroStateQueryOptions(params.heroId)),
+});
