@@ -8,6 +8,8 @@ const HeroSchema = z.object({
 
 const HeroListSchema = z.array(HeroSchema);
 
+type HeroList = z.infer<typeof HeroListSchema>;
+
 const HeroStateSchema = z.object({
   str: z.number(),
   int: z.number(),
@@ -15,4 +17,7 @@ const HeroStateSchema = z.object({
   luk: z.number(),
 });
 
+type HeroState = z.infer<typeof HeroStateSchema>;
+
 export { HeroListSchema, HeroStateSchema };
+export type { HeroList, HeroState };

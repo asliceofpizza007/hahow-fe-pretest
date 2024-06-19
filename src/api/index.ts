@@ -1,4 +1,4 @@
-import { HeroListSchema, HeroStateSchema } from "./schema";
+import { HeroListSchema, HeroStateSchema, type HeroState } from "./schema";
 import { queryOptions } from "@tanstack/react-query";
 
 const API_URL = "https://hahow-recruit.herokuapp.com/heroes";
@@ -31,4 +31,21 @@ const getHeroStateQueryOptions = (id: string) =>
     queryFn: async () => getHeroState(id),
   });
 
-export { getHeroListQueryOptions, getHeroStateQueryOptions };
+// Patch hero states
+const patchHeroState = async ({
+  id,
+  data,
+}: {
+  id: string;
+  data: HeroState;
+}) => {
+  return await fetch(`${API_URL}/${id}/profile`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+export { getHeroListQueryOptions, getHeroStateQueryOptions, patchHeroState };
