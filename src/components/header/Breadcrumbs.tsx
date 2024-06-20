@@ -31,7 +31,12 @@ const Breadcrumbs = () => {
       className="flex items-center gap-1 uppercase font-bold text-base md:text-lg md:gap-2"
       aria-label="breadcrumb"
     >
-      <Link className="hover:text-au-accent" to="/">
+      <Link
+        className={crumbCVA({
+          isCurrent: !crumbs.length,
+        })}
+        to="/"
+      >
         Home
       </Link>
       {crumbs.map((crumb) => {
