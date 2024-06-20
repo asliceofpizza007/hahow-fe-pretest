@@ -9,6 +9,8 @@ import {
 } from "react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 import { patchHeroState } from "../../api";
 import { type HeroState } from "../../api/schema";
@@ -21,19 +23,19 @@ export const Route = createLazyFileRoute("/heroes/$heroId")({
 });
 
 function HeroProfile() {
-  const { data } = Route.useLoaderData();
+  const loaderData = Route.useLoaderData();
   const { name } = Route.useSearch();
   const { heroId } = Route.useParams();
-  const maxP = useRef<number>(data ? getPoints(data) : 0);
+  const maxP = useRef<number>(loaderData.data ? getPoints(loaderData.data) : 0);
   const [localStates, setLocalStates] = useState<HeroState | undefined>(
-    () => data ?? structuredClone(data)
+    () => loaderData.data ?? structuredClone(loaderData.data)
   );
 
   useEffect(() => {
     // revalidate data
-    setLocalStates(structuredClone(data));
-    maxP.current = data ? getPoints(data) : 0;
-  }, [data]);
+    setLocalStates(structuredClone(loaderData.data));
+    maxP.current = loaderData.data ? getPoints(loaderData.data) : 0;
+  }, [loaderData.data]);
 
   const remainingP = useMemo(() => {
     return localStates ? maxP.current - getPoints(localStates) : maxP.current;
@@ -93,8 +95,24 @@ function HeroProfile() {
     });
   };
 
+  // animation
+  const sectionRef = useRef<HTMLElement>(null);
+  useGSAP(
+    () => {
+      gsap.from(sectionRef.current, {
+        y: 150,
+        scale: 0.7,
+        duration: 0.3,
+        ease: "back",
+      });
+    },
+    {
+      dependencies: [heroId],
+    }
+  );
+
   return (
-    <section className="w-full">
+    <section ref={sectionRef} className="w-full">
       {name && <h3 className="font-bold text-2xl mb-3">{name}</h3>}
       <form onSubmit={onSubmit}>
         <div className="grid grid-cols-[120px_1fr] gap-3">

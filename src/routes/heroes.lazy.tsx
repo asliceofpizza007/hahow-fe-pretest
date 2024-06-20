@@ -1,10 +1,13 @@
-import { useMemo, type CSSProperties } from "react";
+import { useMemo, useRef, type CSSProperties } from "react";
 import {
   Link,
   Outlet,
   createLazyFileRoute,
   useLocation,
 } from "@tanstack/react-router";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+
 import { Card } from "../components";
 
 export const Route = createLazyFileRoute("/heroes")({
@@ -28,19 +31,37 @@ const cssVars: Record<string, Record<string, string>> = {
 };
 
 function HeroLayout() {
-  const { data } = Route.useLoaderData();
+  const loaderData = Route.useLoaderData();
   const location = useLocation();
   const id = useMemo(() => {
     const paths = location.pathname.split("/").filter(Boolean);
     return paths[paths.length - 1];
   }, [location.pathname]);
 
+  // animation
+  const container = useRef<HTMLDivElement>(null);
+  useGSAP(
+    () => {
+      gsap.timeline().from(".card", {
+        y: 50,
+        opacity: 0.3,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "back",
+      });
+    },
+    { scope: container }
+  );
+
   return (
     <>
       <section className="w-full">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3">
-          {data ? (
-            data.map((hero) => {
+        <div
+          ref={container}
+          className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3"
+        >
+          {loaderData.data ? (
+            loaderData.data.map((hero) => {
               const style = cssVars[hero.id as string] as CSSProperties;
               const isActive = hero.id === id;
               return (
