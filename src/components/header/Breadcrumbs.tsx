@@ -21,7 +21,9 @@ const Breadcrumbs = () => {
         name: path,
       });
     }
-    return res;
+    return import.meta.env.DEV
+      ? res
+      : res.filter((crumb) => crumb.name !== "hahow-fe-pretest");
   }, [location.pathname]);
 
   return (
