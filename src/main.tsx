@@ -17,6 +17,7 @@ const router = createRouter({
   },
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
+  basepath: import.meta.env.DEV ? "/" : "/hahow-fe-pretest",
 });
 
 // Register the router instance for type safety
