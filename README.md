@@ -120,8 +120,8 @@
 * Lastly, GSAP makes it easier to build a eye-catching animation to our project.
 
 ## Q&A
-Q1: What's comment rule you apply? And in what kind of condition?
-Ans: Actually, I barely write comment because I follow most of **Clean Code** develop guide. I'd like my naming to be meaningful. There's a case I would rather write command is that it happens to use a tricky way to achieve the result.
-Q2: What's the difficulty you face during the development and how do you solve it?
-Ans: I didn't encounter too many problems with coding. I had more problems with design because I'm lacking personal aesthetics.
+* Q1: What's comment rule you apply? And in what kind of condition?
+  Ans: Actually, I barely write comment because I follow most of **Clean Code** develop guide. I'd like my naming to be meaningful. There's a case I would rather write command is that it happens to use a tricky way to achieve the result.
+* Q2: What's the difficulty you face during the development and how do you solve it?
+  Ans: I didn't encounter too many problems with coding. I had more problems with design because I'm lacking personal aesthetics.
 So when writing styles, I referred more to design styles on **CodePen** and **Pinterest** and replicated them myself.
